@@ -9,10 +9,10 @@ myRole:
     region: us-east-2
 
 myFunction:
-  component: ./fn
+  component: ./code
   inputs:
-    component: ./fn
     role: ${myRole}
+
 restApi:
   component: "@serverless/aws-api-gateway"
   inputs:
