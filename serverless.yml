@@ -1,0 +1,26 @@
+name: my-custom-component-logger-project
+
+myRole:
+  component: "@serverless/aws-iam-role"
+  inputs:
+    service: lambda.amazonaws.com
+    policy:
+      arn: arn:aws:iam::aws:policy/AdministratorAccess
+    region: us-east-2
+
+myFunction:
+  component: ./fn
+  inputs:
+    component: ./fn
+    role: ${myRole}
+restApi:
+  component: "@serverless/aws-api-gateway"
+  inputs:
+    description: Serverless REST API
+    endpoints:
+      - path: /fn/
+        method: any
+        function: ${myFunction.arn}
+      - path: /fn/{proxy+}
+        method: any
+        function: ${myFunction.arn}
